@@ -8,15 +8,15 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          Welcome to MediRecords Weather App
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://medirecords-weather-backend.herokuapp.com/weather-service/api/v1/weather/city/Manila?apiKey=1dd361173e70cbc9901d5578ad417903"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn More
         </a>
       </header>
     </div>
