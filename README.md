@@ -1,6 +1,13 @@
-# Getting Started with MediRecords Weather App
+# Getting Started with MediRecords Weather React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Requirements
+
+For running the application you need:
+
+- [Node.js 16 or newer](https://nodejs.org/en/download/)
+- [npm 6 or newer]
 
 ## Available Scripts
 
