@@ -6,7 +6,6 @@ import { cities } from 'config/constants';
 import { Weather } from 'types';
 import './home.scss';
 import { capitalize } from 'utils/helpers';
-import weatherIcon from 'assets/img/cloudy-day.png';
 import loader from 'assets/img/loader.gif';
 
 type Props = {

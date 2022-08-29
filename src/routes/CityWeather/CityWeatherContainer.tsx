@@ -20,7 +20,7 @@ export default function CityWeatherContainer(): JSX.Element {
                 return;
             }
 
-            path = `/au/${city.value.toLowerCase()}/weather-forecast`;
+            path = `/${city.value.toLowerCase() === 'manila' ? 'ph' : 'au'}/${city.value.toLowerCase()}/weather-forecast`;
         }
         
         navigate(path, { replace: true});
