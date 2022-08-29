@@ -32,7 +32,7 @@ export default function HomeScreen({
                     options={cities}
                     menuPlacement='auto'
                     menuPosition='fixed'
-                    placeholder='Select City'
+                    placeholder='📍Select City'
                     className='home__city-selector mx-auto'
                     onChange={routeChange}
                 />

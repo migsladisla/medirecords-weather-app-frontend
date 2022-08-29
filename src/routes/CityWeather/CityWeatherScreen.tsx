@@ -36,7 +36,7 @@ export default function CityWeatherScreen({
                         menuPlacement='auto'
                         menuPosition='fixed'
                         placeholder='Select City'
-                        value={{ value: city, label: capitalize(city!) }}
+                        value={{ value: city, label: `📍${capitalize(city!)}` }}
                         onChange={routeChange}
                     />
                     <Typography size={26} color='white'>
