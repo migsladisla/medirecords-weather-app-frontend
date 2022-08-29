@@ -9,6 +9,11 @@
     margin-bottom: 0;
 
     &.size {
+        &-80 {
+            font-size: 80px;
+            line-height: 60px;
+        }
+
         &-58 {
             font-size: 58px;
             line-height: 60px;

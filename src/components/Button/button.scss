@@ -2,7 +2,7 @@
 @import 'styles/_variables';
 @import 'styles/_mixins';
 
-.button {
+.btn {
     position: relative;
     display: flex !important;
     padding: 13px 2.5rem;
@@ -56,6 +56,11 @@
 
     &.btn-light {
         color: $color-brand-blue;
+    }
+    
+    &.btn-dark {
+        color: $color-brand-light;
+        background-color: $color-brand-dark !important;
     }
 
     &__spinner {

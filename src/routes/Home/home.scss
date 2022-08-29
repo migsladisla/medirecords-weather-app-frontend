@@ -6,12 +6,61 @@
     height: 100%;
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding: 80px 120px;
+
+    @include screen-xs {
+        padding: 40px;
+    }
 
     &__wrapper {
-        width: 685px;
         padding: 40px;
         align-items: center;
+
+        .title {
+            width: 60% !important;
+        }
+
+        @include screen-lg {
+            padding: 0;
+            .title {
+                font-size: 38px;
+                width: 75% !important;
+                line-height: 40px;
+            }
+        }
+    }
+
+    &__city-selector {
+        width: 500px;
+        padding: 0 50px;
+    }
+
+    &__top-cities {
+        margin-top: 6rem;
+        padding: 40px;
+
+        @include screen-lg {
+            margin-top: 3rem !important;
+        }
+    
+        .card {
+            padding: 30px 15px;
+            margin: auto;
+            color: $color-font-white;
+            background-color: rgba(37, 41, 50, 0.5) !important;
+            
+            &:hover {
+                cursor: pointer;
+            }
+
+            .card-img {
+                margin-right: 10px;
+            }
+
+            p {
+                color: $color-font-white;
+            }
+        }
     }
 }
