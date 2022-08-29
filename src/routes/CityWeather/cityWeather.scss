@@ -40,8 +40,20 @@
         }
     }
 
+    &__more-details {
+        color: $color-font-white !important;
+
+        p {
+            color: $color-font-white !important;
+        }
+
+        @include screen-lg {
+            padding-top: 40px;
+        }
+    }
+
     &__forecast-select {
-        margin-top: 120px;
+        margin-top: 100px;
         
         @include screen-lg {
             padding: 0;
