@@ -1,0 +1,17 @@
+
+@import 'styles/_variables';
+@import 'styles/_mixins';
+
+.home {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__wrapper {
+        width: 685px;
+        padding: 40px;
+        align-items: center;
+    }
+}

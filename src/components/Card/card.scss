@@ -1,0 +1,10 @@
+
+@import 'styles/_variables';
+@import 'styles/_mixins';
+
+.card {
+    background-color: $color-background-light;
+    padding: 20px 31px;
+    border-radius: 1px solid $color-shadow;
+    border-radius: $border-radius-medium;
+}

@@ -1,0 +1,18 @@
+@import './_variables';
+
+$theme-colors: (
+    'primary': $color-primary,
+    'secondary': $color-secondary,
+    'success': $color-success,
+    'danger': $color-danger,
+    'warning': $color-warning,
+    // 'info': ,
+    'light': $color-light,
+    'dark': $color-dark
+);
+
+.dropdown-divider {
+    border-top: 1px solid #C6C8D5;
+}
+
+@import "~bootstrap/scss/bootstrap";

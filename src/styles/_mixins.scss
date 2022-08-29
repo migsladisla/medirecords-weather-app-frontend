@@ -1,0 +1,53 @@
+// ------------------------------------- //
+// mixins for media queries
+
+@mixin screen-lg {
+    @media (max-width: $media-lg) {
+        @content;
+    }
+}
+
+@mixin screen-md {
+    @media (max-width: $media-md) {
+        @content;
+    }
+}
+
+@mixin screen-sm {
+    @media (max-width: $media-sm) {
+        @content;
+    }
+}
+
+@mixin screen-xs {
+    @media (max-width: $media-xs) {
+        @content;
+    }
+}
+
+// ------------------------------------- //
+// add page side paddings responsively
+@mixin page-side-paddings($shift: (xl: 0 0, lg: 0 0, md: 0 0, sm: 0 0, xs: 0 0)) {
+    padding-left: nth(map-get($shift, 'xl'), 1) + map-get($page-side-paddings, 'xl');
+    padding-right: nth(map-get($shift, 'xl'), 2) + map-get($page-side-paddings, 'xl');
+
+    @include screen-lg {
+        padding-left: nth(map-get($shift, 'lg'), 1) + map-get($page-side-paddings, 'lg');
+        padding-right: nth(map-get($shift, 'lg'), 2) + map-get($page-side-paddings, 'lg');
+    }
+
+    @include screen-md {
+        padding-left: nth(map-get($shift, 'md'), 1) + map-get($page-side-paddings, 'md');
+        padding-right: nth(map-get($shift, 'md'), 2) + map-get($page-side-paddings, 'md');
+    }
+
+    @include screen-sm {
+        padding-left: nth(map-get($shift, 'sm'), 1) + map-get($page-side-paddings, 'sm');
+        padding-right: nth(map-get($shift, 'sm'), 2) + map-get($page-side-paddings, 'sm');
+    }
+
+    @include screen-xs {
+        padding-left: nth(map-get($shift, 'xs'), 1) + map-get($page-side-paddings, 'xs');
+        padding-right: nth(map-get($shift, 'xs'), 2) + map-get($page-side-paddings, 'xs');
+    }
+}

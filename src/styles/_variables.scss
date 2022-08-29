@@ -1,0 +1,129 @@
+//-------------------------------------//
+// MEDIA QUERIES
+
+$media-lg: 1200px;
+$media-md: 992px;
+$media-sm: 768px;
+$media-xs: 480px;
+
+
+//-------------------------------------//
+// DIMENSIONS
+
+// navmenu height
+$height-navmenu: 60px;
+
+// sidebar
+$sidebar-width: 250px;
+
+// border-radius
+$border-radius-base: 0;
+$border-radius-small: 3px;
+$border-radius-medium: 6px;
+$border-radius-large: 10px;
+
+
+//-------------------------------------//
+// COLORS
+
+// color: background
+$color-background-default: #474747;
+$color-background-light: #FFFFFF;
+
+// color: brand
+$color-brand-blue: #3A48C7;
+$color-brand-neon-green: #5CC964;
+$color-brand-green: #0F9D1A;
+$color-brand-dark-cyan: #4C9EA0;
+$color-brand-dark-gray: #A0A0A0;
+$color-brand-light-gray: #D8D9E4;
+$color-brand-grayish-blue: #E2E4EF;
+$color-brand-light: #efefef;
+$color-brand-red: #DD4215;
+$color-brand-light-red: #F06E58;
+$color-brand-orange: #F0B358;
+$color-brand-yellow: #FEC658;
+
+// color: font
+$color-font-base: #262B59;
+$color-font-bluish-gray: #263754;
+$color-font-bluish-light: #474C86;
+$color-font-light: #d2d2d2;
+$color-font-red: $color-brand-light-red;
+$color-font-white: #FFFFFF;
+$color-font-placeholder: #C7C7C7;
+$color-font-table-header: #979797;
+$color-font-link: #0d6efd;
+$color-font-sublabel: #999BA5;
+$color-font-update-label: #135CC8;
+
+$color-primary: $color-brand-blue;
+$color-secondary: $color-brand-dark-cyan;
+$color-success: $color-brand-neon-green;
+$color-dark: $color-brand-dark-gray;
+$color-warning: $color-brand-orange;
+$color-danger: $color-brand-red;
+$color-light: #F1F3FB;
+
+// colors: links
+$color-link: $color-brand-blue;
+$color-link-hover: lighten($color-brand-blue, 15%);
+
+// color: dividers/borders
+$color-border: #999ED0;
+$color-border-gray: #979797;
+$color-border-dropdown: #C6C8D5;
+$color-divider: #B7BBDE;
+
+// color: icons
+$color-icon: #9FA3D2;
+
+// color: modal background
+$color-modal-bg: #f5f7f9;
+
+// color: shadow
+$color-shadow: rgba(38,43,89,0.18);
+
+// color: scenario subrow background
+$color-subrow-bg: #f8f9f9;
+
+
+//-------------------------------------//
+// FONTS
+
+// fonts: base styles
+$font-family-raleway: 'Raleway', sans-serif;
+$font-size-base: 1rem;
+
+// fonts: weights
+$font-light: 300;
+$font-normal: 400;
+$font-medium: 500;
+$font-semi-bold: 600;
+
+
+//-------------------------------------//
+// SPACING
+
+$spacing: 1.75rem;
+$spacing-double: $spacing * 2;
+$spacing-third: $spacing * 3;
+$spacing-half: $spacing / 2;
+
+$page-side-paddings: (
+    xl: 70px,
+    lg: 50px,
+    md: 20px,
+    sm: 5px,
+    xs: 5px
+);
+
+
+//-------------------------------------//
+// Z:INDEX
+
+$zindex-header: 1000;
+$zindex-dropdown: 1100;
+$zindex-notify: 1300;
+$zindex-modal: 1400;
+$zindex-overlay: 100;

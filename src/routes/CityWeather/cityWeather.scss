@@ -1,0 +1,31 @@
+
+@import 'styles/_variables';
+@import 'styles/_mixins';
+
+.weather {
+    height: 100%;
+    width: 100%;
+
+    &__details {
+        color: $color-font-white !important;
+    }
+
+    &__wrapper {
+        width: 435px;
+        padding: 40px;
+        align-items: center;
+    }
+
+    &__logo {
+        padding: 22px;
+    }
+
+    &__form {
+        width: 100%;
+        margin-bottom: 15px;
+
+        .form-group {
+            margin-bottom: 23px;
+        }
+    }
+}

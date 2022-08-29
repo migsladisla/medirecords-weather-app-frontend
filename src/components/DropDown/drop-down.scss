@@ -1,0 +1,33 @@
+
+@import 'styles/_variables';
+@import 'styles/_mixins';
+
+.drop-down {
+
+    .dropdown-menu {
+        border-color: $color-border-dropdown;
+        padding: 0.75rem 0;
+
+        > a.dropdown__item-danger {
+            &:active {
+                background-color: $color-brand-red;
+                color: $color-font-white;
+            }
+        }
+    }
+
+    .dropdown-item {
+        color: $color-font-bluish-gray;
+        padding: 0.5rem 1rem;
+        font-size: 14px;
+
+        &:active {
+            background-color: $color-brand-blue;
+            color: $color-font-white;
+
+            > p {
+                color: $color-font-white;
+            }
+        }
+    }
+}

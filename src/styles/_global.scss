@@ -1,0 +1,138 @@
+@import '_variables';
+
+#root {
+    height: 100%;
+    margin: 0;
+    background: $color-background-default;
+}
+
+#outer-container {
+    height: 100%;
+    overflow: hidden;
+}
+
+#page-wrap {
+    position: relative;
+    z-index: 0;
+    contain: layout;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 1.5rem 1.75rem;
+    height: 100%;
+}
+
+.safari-fix #page-wrap {
+    position: fixed;
+    overflow: hidden;
+    -webkit-overflow-scrolling: auto;
+}
+
+.loading-container {
+    margin-top: $spacing-double;
+}
+
+.no-transition,
+.no-transition * {
+    transition-property: none !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.top-spacing {
+    margin-top: $spacing;
+}
+
+.top-spacing-double {
+    margin-top: $spacing-double;
+}
+
+.top-spacing-third {
+    margin-top: $spacing-third;
+}
+
+.top-spacing-half {
+    margin-top: $spacing-half;
+}
+
+.flex-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-spaced {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-centered-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.modal-content {
+    border: none;
+}
+
+.section-header {
+    background: #F1F3FB;
+    padding: 20px;
+    border-radius: 0;
+}
+
+.modal-header {
+    align-items: center;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.disabled {
+    &__div {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+.isBold {
+    font-weight: 600 !important;
+}
+
+.-tooltip {
+    visibility: hidden;
+    background-color: $color-background-light;
+    text-align: center;
+    padding: 10px 25px;
+    margin-left: 20px;
+    position: absolute;
+    z-index: 10;
+    top: -11px;
+    left: 85%;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+
+    &::after {
+        content: " ";
+        position: absolute;
+        box-shadow: -3px 2px 3px 0 rgba(0, 0, 0, 0.07);
+        top: 50%;
+        right: 96%;
+        margin-top: -5px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent $color-background-light $color-background-light;
+
+        transform-origin: 0 20;
+        transform: rotate(45deg);
+    }
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip {
+    font-family: $font-family-raleway;
+}
