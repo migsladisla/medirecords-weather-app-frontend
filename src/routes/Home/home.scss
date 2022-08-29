@@ -45,7 +45,8 @@
         }
     
         .card {
-            padding: 30px 15px;
+            min-width: 230px;
+            padding: 30px 25px;
             margin: auto;
             color: $color-font-white;
             background-color: rgba(37, 41, 50, 0.5) !important;

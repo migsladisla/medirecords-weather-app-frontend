@@ -18,5 +18,6 @@ export const cities = [
     { value: 'Newcastle', label: 'Newcastle' },
     { value: 'Wollongong', label: 'Wollongong' },
     { value: 'Geelong', label: 'Geelong' },
-    { value: 'Hobart', label: 'Hobart' }
+    { value: 'Hobart', label: 'Hobart' },
+    { value: 'Manila', label: 'Manila' }
 ];

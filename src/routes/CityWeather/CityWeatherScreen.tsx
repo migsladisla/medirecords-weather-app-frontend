@@ -3,12 +3,12 @@ import moment from 'moment-timezone';
 import Select from 'react-select';
 import { Row, Col, Card } from 'react-bootstrap';
 import { cities } from 'config/constants';
+import { MdHome } from 'react-icons/md';
 import './cityWeather.scss';
 import Typography from 'components/Typography';
-import { Weather } from 'types';
+import { Weather, HourEntity } from 'types';
 import { capitalize } from 'utils/helpers';
-import sunIcon from 'assets/img/big-sun.png';
-import { MdRowing } from 'react-icons/md';
+import loader from 'assets/img/loader.gif';
 const cityTimezones = require('city-timezones');
 
 type Props = {
@@ -30,21 +30,35 @@ export default function CityWeatherScreen({
         <div className='weather'>
             <div className='weather__wrapper'>
                 <div className='d-flex justify-content-between headers'>
-                    <Select
-                        className='weather__city-selector'
-                        options={cities}
-                        menuPlacement='auto'
-                        menuPosition='fixed'
-                        placeholder='Select City'
-                        value={{ value: city, label: `📍${capitalize(city!)}` }}
-                        onChange={routeChange}
-                    />
+                    <div className='d-flex justify-content-center' style={{ height: '100%', width: '600px', maxWidth: '100%' }}>
+                        <Select
+                            className='weather__city-selector'
+                            options={cities}
+                            menuPlacement='auto'
+                            menuPosition='fixed'
+                            placeholder='Select City'
+                            value={{ value: city, label: `📍${capitalize(city!)}` }}
+                            onChange={routeChange}
+                        />
+                        <MdHome
+                            className='weather__city-home ms-3'
+                            color='white'
+                            size={35}
+                            onClick={() => routeChange(null)}
+                        />
+                    </div>
                     <Typography size={26} color='white'>
+                        {moment().tz(cityTimezones.lookupViaCity(city)[0].timezone).format('MMM DD')}<br/>
                         {moment().tz(cityTimezones.lookupViaCity(city)[0].timezone).format('dddd, hh:mm A')}
                     </Typography>
                 </div>
                 <div>
-                    {isLoading ? 'Loading...' : CityWeatherDetails(cityWeather, country!)}
+                    {isLoading ? <img
+                        src={loader}
+                        height='140'
+                        alt='loader-icon'
+                        className='px-3'
+                    /> : CityWeatherDetails(cityWeather, country!)}
                 </div>
                 <Row>
                     <Col>
@@ -56,7 +70,7 @@ export default function CityWeatherScreen({
 }
 
 const CityWeatherDetails = (
-    details: Weather,
+    cityWeather: Weather,
     country: string
 ) => {
     const [activeTab, setActiveTab] = React.useState(0);
@@ -64,17 +78,17 @@ const CityWeatherDetails = (
     return (
         <div className='weather__details'>
             <Typography color='white' size={40}>
-                {details.city}, {country.toUpperCase()}
+                {cityWeather.location.name}, {country.toUpperCase()}
             </Typography>
             <Typography size={20} color='gray'>
-                {capitalize(details.weather[0].description)}. Lorem ipsum donor ewan ko.
+                {capitalize(cityWeather.current.condition.text)}. The high will be {cityWeather.forecast.forecastday![0].day.maxtemp_c}&deg;.
             </Typography>
             <div className='d-flex align-items-center mt-5'>
                 <img
-                    src={sunIcon}
+                    src={cityWeather.current.condition.icon}
                     width='120'
                     className='icon'
-                    alt='sun-icon'
+                    alt='current-icon'
                 />
                 <Typography
                     size={80}
@@ -82,7 +96,7 @@ const CityWeatherDetails = (
                     color='white'
                     className=''
                 >
-                    {details.main.temp}°ᶜ
+                    {cityWeather.current.temp_c}°ᶜ
                 </Typography>
             </div>
             <div className='weather__forecast-select'>
@@ -91,29 +105,28 @@ const CityWeatherDetails = (
                     <button type='button' className={`btn btn-dark ${activeTab === 1 && 'active'}`} onClick={() => setActiveTab(1)}>Daily</button>
                 </div>
                 <div className='weather-forecasts mt-3'>
-                    {activeTab === 0 ? HourlyWeatherForecast() : DailyWeatherForecast()}
+                    {activeTab === 0 ? HourlyWeatherForecast(cityWeather) : DailyWeatherForecast(cityWeather)}
                 </div>
             </div>
         </div>
     )
 }
 
-const HourlyWeatherForecast = () => {
-    const cityWeathers = [1, 2, 3, 4,5,6,7,8,9,10,11,12];
+const HourlyWeatherForecast = (cityWeather: Weather) => {
     return (
         <div className='weather__forecast-hourly'>
             <Row className='d-flex'>
-                {cityWeathers.map((weather: number) => {
-                    return <Col className='p-2' key={weather}>
+                {cityWeather.forecast.forecastday![0].hour!.map((hourlyData: HourEntity, idx: number) => {
+                    return idx % 2 === 0 && <Col className='p-2' key={hourlyData.time_epoch}>
                         <Card className='mx-auto text-center'>
                             <Card.Body className='mx-auto text-center'>
                                 <Typography size={16} weight='medium'>
-                                    6:00 am
+                                    {moment(hourlyData.time).format('hh:mm A')}
                                 </Typography>
-                                <Card.Img src={sunIcon} className='w-50 py-3 mx-auto' />
+                                <Card.Img src={hourlyData.condition.icon} className='py-3 mx-auto' />
                                 <Card.Text>
                                     <Typography size={18} weight='medium'>
-                                        {24}°ᶜ
+                                        {hourlyData.temp_c}°ᶜ
                                     </Typography>
                                 </Card.Text>
                             </Card.Body>
@@ -125,28 +138,28 @@ const HourlyWeatherForecast = () => {
     );
 }
 
-const DailyWeatherForecast = () => {
-    const cityWeathers = [1, 2, 3, 4,5,6,7];
+const DailyWeatherForecast = (cityWeather: Weather) => {
+    const defaultDailyCount = 7;
     return (
         <div className='weather__forecast-daily'>
             <Row className='d-flex'>
-                {cityWeathers.map((weather: number) => {
-                    return <Col className='p-2' key={weather}>
+                {[...Array(defaultDailyCount)].map((x, i) =>
+                    <Col className='p-2' key={i}>
                         <Card className='mx-auto text-center'>
                             <Card.Body className='mx-auto text-center'>
                                     <Typography size={16} weight='medium'>
-                                        Today
+                                        {moment(cityWeather.forecast.forecastday![i].date).format('ddd, DD')}
                                     </Typography>
-                                <Card.Img src={sunIcon} className='w-50 py-3 mx-auto' />
+                                <Card.Img src={cityWeather.forecast.forecastday![i].day.condition.icon} className='py-3 mx-auto' />
                                 <Card.Text>
                                     <Typography size={18} weight='medium'>
-                                        {24}°ᶜ
+                                        {cityWeather.forecast.forecastday![i].day.avgtemp_c}°ᶜ
                                     </Typography>
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                    </Col>;
-                })}
+                    </Col>
+                )}
             </Row>
         </div>
     );

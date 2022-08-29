@@ -176,13 +176,13 @@ export default function HomeContainer(): JSX.Element {
 
     const prepareData = async () => {
         try {
-            // const collectedCities: Weather[] = [];
-            // for await (const city of defaultCities) {
-            //     const cityWeather: Weather = await fetchCityWeather(city);
-            //     collectedCities.push(cityWeather);
-            // }
+            const collectedCities: Weather[] = [];
+            for await (const city of defaultCities) {
+                const cityWeather: Weather = await fetchCityWeather(city);
+                collectedCities.push(cityWeather);
+            }
 
-            // setCityWeathers(collectedCities);
+            setCityWeathers(collectedCities);
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
@@ -191,7 +191,8 @@ export default function HomeContainer(): JSX.Element {
 
     return <HomeScreen
         isLoading={isLoading}
-        cityWeathers={sampleData}
+        defaultCities={defaultCities}
+        cityWeathers={cityWeathers}
         routeChange={routeChange}
     />;
 }

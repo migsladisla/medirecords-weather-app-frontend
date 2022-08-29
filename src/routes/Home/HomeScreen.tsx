@@ -1,21 +1,25 @@
 import Typography from 'components/Typography';
 import Select from 'react-select';
-import { Row, Col, Card, Button } from 'react-bootstrap';
+import LazyLoad from 'react-lazyload';
+import { Row, Col, Card } from 'react-bootstrap';
 import { cities } from 'config/constants';
 import { Weather } from 'types';
 import './home.scss';
 import { capitalize } from 'utils/helpers';
 import weatherIcon from 'assets/img/cloudy-day.png';
+import loader from 'assets/img/loader.gif';
 
 type Props = {
     isLoading: boolean,
-    cityWeathers: any[],
+    cityWeathers: Weather[],
+    defaultCities: string[],
     routeChange: any
 }
 
 export default function HomeScreen({
     isLoading,
     cityWeathers,
+    defaultCities,
     routeChange
 }: Props): JSX.Element {
     return (
@@ -38,18 +42,21 @@ export default function HomeScreen({
                 />
                 <div className='home__top-cities'>
                     <Row>
+                        {isLoading && LazyLoadDefaultCities(defaultCities)}
                         {cityWeathers.map((weather: Weather) => {
-                            return <Col className='p-3' key={weather.city}>
-                                <Card onClick={() => routeChange({ value: weather.city })}>
+                            return <Col className='p-3' key={weather.location.name}>
+                                <Card onClick={() => routeChange({ value: weather.location.name })}>
                                     <Card.Body>
-                                        <Card.Title>{weather.city}, {weather.city.toLowerCase() !== 'manila' ? 'AU' : 'PH'}</Card.Title>
+                                        <Card.Title>{weather.location.name}, {weather.location.name.toLowerCase() !== 'manila' ? 'AU' : 'PH'}</Card.Title>
                                         <Card.Text>
-                                            {capitalize(weather.weather[0].description)}
+                                            <Typography size={14} weight='light' component='span' color='gray'>
+                                                {capitalize(weather.current.condition.text)}
+                                            </Typography>
                                         </Card.Text>
                                         <Card.Text className='d-flex align-items-center'>
-                                            <Card.Img src={weatherIcon} className='w-25' />
+                                            <Card.Img src={weather.current.condition.icon} className='w-25' />
                                             <Typography size={36} weight='medium'>
-                                                {weather.main.temp}°ᶜ
+                                                {weather.current.temp_c}°ᶜ
                                             </Typography>
                                         </Card.Text>
                                     </Card.Body>
@@ -61,4 +68,21 @@ export default function HomeScreen({
             </div>
         </div>
     );
+}
+
+const LazyLoadDefaultCities = (defaultCities: string[]) => {
+    return defaultCities.map((city: string) => {
+        return <Col className='p-3' key={city}>
+            <LazyLoad height={200}>
+                <Card>
+                    <img
+                        src={loader}
+                        height='140'
+                        alt='loader-icon'
+                        className='px-3'
+                    />
+                </Card>
+            </LazyLoad>
+        </Col>;
+    })
 }
