@@ -11,6 +11,12 @@
         padding: 20px;
     }
 
+    &__time {
+        @include screen-lg {
+            margin-bottom: 20px;
+        }
+    }
+
     &__city-home {
         cursor: pointer;
     }
