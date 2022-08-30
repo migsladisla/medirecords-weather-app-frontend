@@ -47,9 +47,11 @@ export default function CityWeatherScreen({
                             onClick={() => routeChange(null)}
                         />
                     </div>
-                    <Typography size={26} color='white'>
-                        {moment().tz(cityTimezones.lookupViaCity(city)[0].timezone).format('MMM DD')}<br/>
-                        {moment().tz(cityTimezones.lookupViaCity(city)[0].timezone).format('dddd, hh:mm A')}
+                    <Typography size={40} color='white'>
+                        {moment().tz(cityTimezones.lookupViaCity(city)[0].timezone).format('MMMM DD')}<br/>
+                        <Typography size={20} color='gray'>
+                            {moment().tz(cityTimezones.lookupViaCity(city)[0].timezone).format('dddd, hh:mm A')}
+                        </Typography>
                     </Typography>
                 </div>
                 <div>

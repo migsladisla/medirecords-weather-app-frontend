@@ -72,11 +72,11 @@ export default function HomeScreen({
 const LazyLoadDefaultCities = (defaultCities: string[]) => {
     return defaultCities.map((city: string) => {
         return <Col className='p-3' key={city}>
-            <LazyLoad height={200}>
+            <LazyLoad>
                 <Card>
                     <img
                         src={loader}
-                        height='140'
+                        height='auto'
                         alt='loader-icon'
                         className='px-3'
                     />
