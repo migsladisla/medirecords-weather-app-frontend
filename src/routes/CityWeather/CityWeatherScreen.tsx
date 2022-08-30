@@ -9,13 +9,13 @@ import Typography from 'components/Typography';
 import { Weather, HourEntity } from 'types';
 import { capitalize } from 'utils/helpers';
 import loader from 'assets/img/loader.gif';
-const cityTimezones = require('city-timezones');
+var cityTimezones = require('city-timezones');
 
 type Props = {
     isLoading: boolean,
     city: string | undefined,
     country: string | undefined,
-    cityWeather: any,
+    cityWeather: Weather | null,
     routeChange: any
 }
 
@@ -55,12 +55,22 @@ export default function CityWeatherScreen({
                     </Typography>
                 </div>
                 <div>
-                    {isLoading ? <img
+                    {isLoading
+                    ?
+                    <img
                         src={loader}
                         height='140'
                         alt='loader-icon'
                         className='px-3'
-                    /> : CityWeatherDetails(cityWeather, country!)}
+                    />
+                    :
+                    cityWeather == null
+                    ?
+                    <Typography color='white' size={40}>
+                        Something went wrong. ${city} data could not be found.
+                    </Typography>
+                    :
+                    CityWeatherDetails(cityWeather, country!)}
                 </div>
             </div>
         </div>
@@ -81,7 +91,7 @@ const CityWeatherDetails = (
             <Typography size={20} color='gray'>
                 {capitalize(cityWeather.current.condition.text)}. The high will be {cityWeather.forecast.forecastday![0].day.maxtemp_c}&deg;.
             </Typography>
-            <Row>
+            <Row className='mt-5'>
                 <Col md={12} lg={12} xl={4}>
                     <div className='d-flex align-items-center mt-5'>
                         <img
@@ -101,123 +111,12 @@ const CityWeatherDetails = (
                     </div>
                 </Col>
                 <Col className='weather__more-details' md={12} lg={12} xl={8}>
-                    <Row>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    FEELS LIKE
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.feelslike_c}°ᶜ
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    MAX TEMPERATURE
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.forecast.forecastday![0].day.maxtemp_c}°ᶜ
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    MIN TEMPERATURE
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.forecast.forecastday![0].day.mintemp_c}°ᶜ
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    GUST
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.gust_kph} KPH
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    WIND
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.wind_kph} KPH
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    WIND DIRECTION
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.wind_dir}
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    VISIBILITY
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.vis_km} KM
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    HUMIDITY
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.humidity}
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    PRECIPITATION
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.current.precip_in} IN
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    CHANCE OF RAIN
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.forecast.forecastday![0].day.daily_chance_of_rain}%
-                                </Typography>
-                            </div>
-                        </Col>
-                        <Col className='p-3' sm={6} md={4} lg={3}>
-                            <div>
-                                <Typography size={16} weight='light' component='span' color='gray'>
-                                    CHANCE OF SNOW
-                                </Typography>
-                                <Typography size={18} weight='medium'>
-                                    {cityWeather.forecast.forecastday![0].day.daily_chance_of_snow}%
-                                </Typography>
-                            </div>
-                        </Col>
-                    </Row>
+                    {CityWeatherInfo(cityWeather)}
                 </Col>
             </Row>
             <div className='weather__forecast-select'>
                 <div className='btn-group' role='group'>
-                    <button type='button' className={`btn btn-dark ${activeTab === 0 && 'active'}`} onClick={() => setActiveTab(0)}>Hourly</button>
+                    <button type='button' className={`btn btn-dark ${activeTab === 0 && 'active'}`} onClick={() => setActiveTab(0)}>Bi-hourly</button>
                     <button type='button' className={`btn btn-dark ${activeTab === 1 && 'active'}`} onClick={() => setActiveTab(1)}>Daily</button>
                 </div>
                 <div className='weather-forecasts mt-3'>
@@ -236,17 +135,22 @@ const HourlyWeatherForecast = (cityWeather: Weather) => {
             <Row className='d-flex'>
                 {cityWeather.forecast.forecastday![0].hour!.map((hourlyData: HourEntity, idx: number) => {
                     return idx % 2 === 0 && <Col className='p-2' key={hourlyData.time_epoch}>
-                        <Card className='mx-auto text-center'>
+                        <Card className='mx-auto text-center h-100'>
                             <Card.Body className='mx-auto text-center'>
-                                <Typography size={16} weight='medium'>
-                                    {moment(hourlyData.time).format('hh:mm A')}
-                                </Typography>
-                                <Card.Img src={hourlyData.condition.icon} className='py-3 mx-auto' />
-                                <Card.Text>
-                                    <Typography size={18} weight='medium'>
-                                        {hourlyData.temp_c}°ᶜ
+                                <div style={{ width: '180px', maxWidth: '350px' }}>
+                                    <Typography size={14} weight='medium'>
+                                        {moment(hourlyData.time).format('h A')}
                                     </Typography>
-                                </Card.Text>
+                                    <Typography size={12} weight='light' color='light-gray' component='span'>
+                                        {hourlyData.condition.text}
+                                    </Typography>
+                                    <img src={hourlyData.condition.icon} className='py-3 mx-auto' alt='weather-icon' />
+                                    <Card.Text>
+                                        <Typography size={18} weight='semi-bold'>
+                                            {hourlyData.temp_c}°ᶜ
+                                        </Typography>
+                                    </Card.Text>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>;
@@ -263,14 +167,17 @@ const DailyWeatherForecast = (cityWeather: Weather) => {
             <Row className='d-flex'>
                 {[...Array(defaultDailyCount)].map((x, i) =>
                     <Col className='p-2' key={i}>
-                        <Card className='mx-auto text-center'>
+                        <Card className='mx-auto text-center h-100'>
                             <Card.Body className='mx-auto text-center'>
                                     <Typography size={16} weight='medium'>
                                         {moment(cityWeather.forecast.forecastday![i].date).format('ddd, DD')}
                                     </Typography>
-                                <Card.Img src={cityWeather.forecast.forecastday![i].day.condition.icon} className='py-3 mx-auto' />
+                                    <Typography size={12} weight='light' color='light-gray' component='span'>
+                                        {cityWeather.forecast.forecastday![i].day.condition.text}
+                                    </Typography>
+                                <img src={cityWeather.forecast.forecastday![i].day.condition.icon} className='py-3 mx-auto' alt='weather-icon' />
                                 <Card.Text>
-                                    <Typography size={18} weight='medium'>
+                                    <Typography size={18} weight='semi-bold'>
                                         {cityWeather.forecast.forecastday![i].day.avgtemp_c}°ᶜ
                                     </Typography>
                                 </Card.Text>
@@ -281,4 +188,121 @@ const DailyWeatherForecast = (cityWeather: Weather) => {
             </Row>
         </div>
     );
+}
+
+const CityWeatherInfo = (cityWeather: Weather) => {
+    return (
+        <Row>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        FEELS LIKE
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.feelslike_c}°ᶜ
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        MAX TEMPERATURE
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.forecast.forecastday![0].day.maxtemp_c}°ᶜ
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        MIN TEMPERATURE
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.forecast.forecastday![0].day.mintemp_c}°ᶜ
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        GUST
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.gust_kph} KPH
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        WIND
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.wind_kph} KPH
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        WIND DIRECTION
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.wind_dir}
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        VISIBILITY
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.vis_km} KM
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        HUMIDITY
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.humidity}
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        PRECIPITATION
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.current.precip_in} IN
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        CHANCE OF RAIN
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.forecast.forecastday![0].day.daily_chance_of_rain}%
+                    </Typography>
+                </div>
+            </Col>
+            <Col className='p-3' sm={6} md={4} lg={3}>
+                <div>
+                    <Typography size={16} weight='light' component='span' color='gray'>
+                        CHANCE OF SNOW
+                    </Typography>
+                    <Typography size={18} weight='medium'>
+                        {cityWeather.forecast.forecastday![0].day.daily_chance_of_snow}%
+                    </Typography>
+                </div>
+            </Col>
+        </Row>
+    )
 }

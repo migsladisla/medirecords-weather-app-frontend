@@ -48,6 +48,7 @@
 
     &__more-details {
         color: $color-font-white !important;
+        padding-left: 60px;
 
         p {
             color: $color-font-white !important;
@@ -55,9 +56,10 @@
 
         @include screen-lg {
             padding-top: 40px;
+            padding-left: 0;
         }
     }
-
+    
     &__forecast-select {
         margin-top: 100px;
         

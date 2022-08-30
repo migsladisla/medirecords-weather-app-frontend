@@ -9,12 +9,13 @@
     justify-content: center;
     padding: 80px 120px;
 
-    @include screen-xs {
-        padding: 40px;
+    @include screen-sm {
+        padding: 40px 0;
     }
 
     &__wrapper {
         padding: 40px;
+        width: 100%;
         align-items: center;
 
         .title {
@@ -32,13 +33,17 @@
     }
 
     &__city-selector {
-        width: 500px;
+        max-width: 500px;
+        width: 100%;
         padding: 0 50px;
     }
 
     &__top-cities {
         margin-top: 6rem;
-        padding: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-width: 80%;
 
         @include screen-lg {
             margin-top: 3rem !important;

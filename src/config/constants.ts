@@ -14,7 +14,6 @@ export const cities = [
     { value: 'Adelaide', label: 'Adelaide' },
     { value: 'Gold Coast', label: 'Gold Coast' },
     { value: 'Canberra', label: 'Canberra' },
-    { value: 'Logan City', label: 'Logan City' },
     { value: 'Newcastle', label: 'Newcastle' },
     { value: 'Wollongong', label: 'Wollongong' },
     { value: 'Geelong', label: 'Geelong' },
