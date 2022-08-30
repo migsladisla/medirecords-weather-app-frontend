@@ -25,9 +25,10 @@ export default function CityWeatherContainer(): JSX.Element {
         
         navigate(path, { replace: true});
     };
-
+    
     React.useEffect(() => {
         prepareData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [city]);
 
     const prepareData = async () => {

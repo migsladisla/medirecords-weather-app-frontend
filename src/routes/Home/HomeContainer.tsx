@@ -18,6 +18,7 @@ export default function HomeContainer(): JSX.Element {
 
     React.useEffect(() => {
         prepareData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const prepareData = async () => {
